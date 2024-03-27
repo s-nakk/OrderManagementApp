@@ -5,7 +5,7 @@ using Infrastructure.Data;
 using Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
 
-var AllowSpecificOrigins = "_allowSpecificOrigins";
+var allowSpecificOrigins = "_allowSpecificOrigins";
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,18 +23,20 @@ builder.Services
 ;
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-var app = builder.Build();
 
 //cors
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(
-        name: AllowSpecificOrigins,
+        name: allowSpecificOrigins,
         policy => { policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod(); }
     );
 });
 
-app.UseCors(AllowSpecificOrigins);
+var app = builder.Build();
+
+
+app.UseCors(allowSpecificOrigins);
 
 app.MapGraphQL();
 
